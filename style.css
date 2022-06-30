@@ -1,0 +1,17 @@
+.main {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard {
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cell {
+    width: 10vw;
+    height: 15vh;
+    border: 1px solid black;
+}
