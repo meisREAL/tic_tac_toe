@@ -43,7 +43,11 @@ const gameFlow = (() => {
 
     const markBoard = (cell) => {
         checkPlayerTurn();
-        cell.target.textContent = currentPlayer.mark;
+        if (cell.target.textContent == 'X' || cell.target.textContent == 'O') {
+            return;
+        } else {
+            cell.target.textContent = currentPlayer.mark;
+        }
     }
 
     const makeListeners = () => {
