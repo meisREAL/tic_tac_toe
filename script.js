@@ -23,13 +23,41 @@ const GameBoard = (() => {
     }
 })();
 
-const Player = () => {
-
+const Player = (name, mark) => {
+    return { name, mark }
 }
 
-const gameFlow = (() => {
+const player1 = Player('player-1', 'X');
+const player2 = Player('player-2', 'O');
 
+const gameFlow = (() => {
+    let currentPlayer = player2;
+
+    const checkPlayerTurn = () => {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        }
+    }
+
+    const markBoard = (cell) => {
+        checkPlayerTurn();
+        cell.target.textContent = currentPlayer.mark;
+    }
+
+    const makeListeners = () => {
+        let cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.addEventListener('click', markBoard);
+        });
+    }
+
+    return {
+        makeListeners,
+    }
 })();
 
 
 GameBoard.createBoard();
+gameFlow.makeListeners();
