@@ -18,8 +18,19 @@ const GameBoard = (() => {
             }
         }
     }
+
+    const pushToBoard = () => {
+        let cells = document.querySelectorAll('.cell');
+        for (let i = 0; i < cells.length; i++) {
+            let index = cells[i].dataset.indexNumber.split('-')
+            gameBoard[index[0]][index[1]] = cells[i].textContent
+        }
+    }
+
     return {
         createBoard,
+        pushToBoard,
+        gameBoard,
     }
 })();
 
@@ -48,6 +59,7 @@ const gameFlow = (() => {
         } else {
             cell.target.textContent = currentPlayer.mark;
         }
+        GameBoard.pushToBoard();
     }
 
     const makeListeners = () => {
