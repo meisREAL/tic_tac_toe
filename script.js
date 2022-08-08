@@ -42,6 +42,7 @@ const player1 = Player('player-1', 'X');
 const player2 = Player('player-2', 'O');
 
 const gameFlow = (() => {
+    let running = true;
     let currentPlayer = player2;
 
     const checkPlayerTurn = () => {
@@ -53,13 +54,68 @@ const gameFlow = (() => {
     }
 
     const markBoard = (cell) => {
-        checkPlayerTurn();
-        if (cell.target.textContent == 'X' || cell.target.textContent == 'O') {
-            return;
-        } else {
-            cell.target.textContent = currentPlayer.mark;
+        if (running) {
+            checkPlayerTurn();
+            if (cell.target.textContent == 'X' || cell.target.textContent == 'O') {
+                return;
+            } else {
+                cell.target.textContent = currentPlayer.mark;
+            }
+            GameBoard.pushToBoard();
+            checkWinCon();
         }
-        GameBoard.pushToBoard();
+    }
+
+    const checkWinCon = () => {
+        let board = GameBoard.gameBoard;
+        // for (let r = 0; r < board.length; r++) {
+        //     for (let c = 0; c < board[r].length; c++) {
+        //         if (board[r][0] == board[r][1] && board[r][1] == board[r][2] && board[r][0] != '') {
+        //             console.log('win');
+        //             running = false;
+        //             break;
+        //         } else if (board[0][c] == board[1][c] && board[1][c] == board[2][c] && board[0][c] != '') {
+        //             console.log('win');
+        //             running = false;
+        //             break;
+        //         } else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '') {
+        //             console.log('win');
+        //             running = false;
+        //             break;
+        //         } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '') {
+        //             console.log('win');
+        //             running = false;
+        //             break;
+        //         } else {
+        //             return;
+        //         }
+        //     }
+        // }
+        for (let r = 0; r < 3; r++) {
+            if (board[r][0] == board[r][1] && board[r][1] == board[r][2] && board[r][0] != '') {
+                console.log('win');
+                running = false;
+                break;
+            }
+        }
+
+        for (let c = 0; c < 3; c++) {
+            if (board[0][c] == board[1][c] && board[1][c] == board[2][c] && board[0][c] != '') {
+                console.log('win');
+                running = false;
+                break;
+            }
+        }
+
+        if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '') {
+            console.log('win');
+            running = false;
+        }
+
+        if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '') {
+            console.log('win');
+            running = false;
+        }
     }
 
     const makeListeners = () => {
